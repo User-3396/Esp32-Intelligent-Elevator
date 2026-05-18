@@ -3,9 +3,11 @@
 #include <mqttClient.h>
 #include <main.cpp>
 
+// Classe padrao MQTTClient para ambos os clientes (Cabine e Hall):
 MQTTClient::MQTTClient(const char* client_id)
     : ssid("ProjetoMInDS"), password("Doi39x-Wa!"), mqtt_server("192.168.1.114"), mqtt_port(1883), client_id(client_id), client(espClient) {}
 
+// Função de inicialização
 void MQTTClient::begin (){
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
@@ -16,6 +18,7 @@ void MQTTClient::begin (){
     client.setServer(mqtt_server, mqtt_port);
 }
 
+// Função de reconexão de wifi, caso houver queda:
 void MQTTClient::reconnect (){
     while (!client.connected()){
         Serial.print("Conectando ao MQTT...");
@@ -31,14 +34,17 @@ void MQTTClient::reconnect (){
     }
 }
 
+// 
 void MQTTClient::setCallback (MQTT_CALLBACK_SIGNATURE){
     client.setCallback(callback);
 }
 
+// Função para se inscrever em um topico
 void MQTTClient::subscribe (const char* topic){
     client.subscribe(topic);
 }
 
+// Função para publicar num topico
 void MQTTClient::publish (const char* topic, const char* payload){
     client.publish(topic, payload);
 }

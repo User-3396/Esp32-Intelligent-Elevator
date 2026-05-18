@@ -2,6 +2,7 @@
 #include <Adafruit_ILI9341.h>
 #include <SPI.h>
 #include <mqttClient.h>
+#include <display_ILI9341.cpp>
 
 //> Definição dos pinos de controle: --------------------------
 
@@ -9,10 +10,7 @@
 // #define TFT_RST   4   // Pino Reset
 
 #define PIN_HALL_BTN 5 // Botao de chamada
-#define TFT_DC 2 // Data/Command (define se os dados são comandos ou texto/imagem).
-#define TFT_CS 15 // Chip Select (seleciona o display para comunicação).
-// #define TFT_CS -1 // -1 se não houver pino CS
-#define TFT_BL 5  // Pino Backlight
+
 
 /* Para ST7789: -----------------------------------------------
 // Inicializa o display sem usar o pino CS (-1):
@@ -21,7 +19,6 @@ Adafruit_ST7789 tft = Adafruit_ST7789(TFT_DC, TFT_RST, TFT_CS);
 */
 
 MQTTClient mqtt("HallESP32");
-Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 
 //int myFunction(int, int);
 
@@ -34,20 +31,12 @@ void setup (){
   pinMode(4, OUTPUT);
   //digitalWrite(4, HIGH);
 
-  tft.begin();
-  tft.setCursor(10, 10);
-  tft.setTextColor(0xFDC0, 0x31A6);
-  tft.setTextSize(5);
-  tft.println("ILI9341\n");
-
-  tft.setTextSize(3);
-  tft.setTextColor(0xFE70, 0x31A6);
-  tft.print("Test Ok");
+  
 
   mqtt.begin();
   mqtt.setCallback(getMessage);
-  mqtt.subscribe("grupo5/el3vador/andar_atual");
-  mqtt.subscribe("grupo5/el3vador/chegada");
+  mqtt.subscribe("grupo5/elevador/andar_atual");
+  mqtt.subscribe("grupo5/elevador/chegada");
 }
 
 void loop (){
