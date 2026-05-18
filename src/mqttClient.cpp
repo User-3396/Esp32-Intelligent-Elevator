@@ -14,7 +14,7 @@ void MQTTClient::begin (){
         delay(500);
         Serial.print(".");
     }
-    Serial.println("WiFi conectado!");
+    Serial.println("\nWiFi conectado!");
     client.setServer(mqtt_server, mqtt_port);
 }
 
@@ -25,7 +25,7 @@ void MQTTClient::reconnect (){
 
         if (client.connect(client_id)){
             Serial.println("Conectado!");
-        } 
+        }
         else{
             Serial.print("Falha, rc=");
             Serial.print(client.state());

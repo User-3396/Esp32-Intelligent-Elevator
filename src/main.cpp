@@ -33,10 +33,10 @@ void setup (){
 
   
 
-  mqtt.begin();
+  mqtt.begin(); // inicialização da classe
   mqtt.setCallback(getMessage);
-  mqtt.subscribe("grupo5/elevador/andar_atual");
-  mqtt.subscribe("grupo5/elevador/chegada");
+  mqtt.subscribe("grupo5/elevador/andar_atual"); // inscrição para receber o andar em que a cabine está
+  mqtt.subscribe("grupo5/elevador/chegada"); // inscrição para saber se a cabine chegou
 }
 
 void loop (){
