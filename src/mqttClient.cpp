@@ -54,7 +54,7 @@ void MQTTClient::publish (const char* topic, const char* payload){
 
 // Função de inicialização
 void MQTTClient::begin (){
-    Serial.print("Inicializando MQTTClient");
+    Serial.print("Inicializando MQTTClient...");
     WiFi.begin(ssid, password);
     
     while (WiFi.status() != WL_CONNECTED){
@@ -68,7 +68,7 @@ void MQTTClient::begin (){
 }
 
 void MQTTClient::loop (){
-
+    
 }
 
 // Configurações MQTT
