@@ -15,13 +15,14 @@ void MQTTClient::begin (){
         Serial.print(".");
     }
     Serial.println("\nWiFi conectado!");
+    Serial.println("IP: " +WiFi.localIP().toString());
     client.setServer(mqtt_server, mqtt_port);
 }
 
 // Função de reconexão de wifi, caso houver queda:
 void MQTTClient::reconnect (){
     while (!client.connected()){
-        Serial.print("Conectando ao MQTT...");
+        Serial.print("Conectando ao broker MQTT...");
 
         if (client.connect(client_id)){
             Serial.println("Conectado!");
@@ -29,7 +30,17 @@ void MQTTClient::reconnect (){
         else{
             Serial.print("Falha, rc=");
             Serial.print(client.state());
-            delay(5000);
+            Serial.println(" tentando novamente em 5s");
+            delay(1000);
+            Serial.print(".");
+            delay(1000);
+            Serial.print(".");
+            delay(1000);
+            Serial.print(".");
+            delay(1000);
+            Serial.print(".");
+            delay(1000);
+            Serial.print(".");
         }
     }
 }
