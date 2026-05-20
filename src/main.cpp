@@ -62,6 +62,7 @@ void loop (){
     // Quando o hall está esperando a cabine
     if (hall.getCabinState()){
       //tft.setText("Chegou!", hall.getFloorCabin ());
+      //delay(10000); 10s 
       hall.setFloorCabin (-1); // configurando estado do hall.
     }
     else{
@@ -69,7 +70,6 @@ void loop (){
     }
     
   }
-  //delay(500);
   
   
 }

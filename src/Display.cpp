@@ -1,5 +1,7 @@
 #include <Display.h>
 #include <Adafruit_ILI9341.h>
+#include <TFT_eSPI.h> // Hardware-specific library
+#include <SPI.h>
 
 // #define TFT_DC 2 // Data/Command (define se os dados são comandos ou texto/imagem).
 // #define TFT_CS 15 // Chip Select (seleciona o display para comunicação).
@@ -34,3 +36,14 @@ void Display::begin (){
 }
 
 // void Display::loop (){}
+
+/*
+SCL deve ser ligado no pino correspondente ao Clock SPI (Ex: GPIO 18 no ESP32).
+SDA deve ser ligado no pino correspondente ao MOSI SPI (Ex: GPIO 23 no ESP32).
+BLK pode ser ligado diretamente no pino 3.3V se você não quiser controlar o brilho via código.
+
+Cores Invertidas (Se acontecer): Telas IPS ST7789 frequentemente apresentam cores trocadas (ex: o azul fica amarelo). 
+Se isso ocorrer no seu teste, adicione a linha tft.invertDisplay(true); 
+logo após o tft.init();
+
+*/
