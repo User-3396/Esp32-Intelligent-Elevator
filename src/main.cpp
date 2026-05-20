@@ -26,12 +26,6 @@ Adafruit_ST7789 tft = Adafruit_ST7789(TFT_DC, TFT_RST, TFT_CS);
 void setup (){
   Serial.begin(115200);
   
-  WiFi.begin(ssid, password);
-  while (wifiConnect () == 1){
-    Serial.print(".");
-
-  }
-
   Serial.println("Inicializando Display ST7789 no ESP32...");
   lcd.begin();
   Serial.println("Inicializando Display ST7789 no ESP32...");
@@ -46,7 +40,6 @@ void setup (){
 }
 
 void loop (){
-
 
   hall.loop();
   //tft.setText(hall.getFloorCabin());
@@ -64,7 +57,7 @@ void loop (){
   //delay(500);
   
   // Atualizando estado da cabine: 
-  if (hall.getCabinState () == "SIM"){
+  if (strcmp(hall.getCabinState(), "SIM")){
     //tft.setText("Chegou!");
   }
   

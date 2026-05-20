@@ -4,19 +4,23 @@
 
 #define MSG_SIZE 1024
 
+const char* clientName ="Hall";
 
+// Variaveis para serilialização de mensagens/publicações
 DynamicJsonDocument doc(MSG_SIZE);
 DynamicJsonDocument doc_send(MSG_SIZE);
 
-MQTTClient mqtt("Hall-001");
+// Declaração da classe MQTT
+MQTTClient mqtt(clientName);
 
-Hall::Hall(const int andar) : FLOOR(andar){}
+Hall::Hall(const int andar) : _FLOOR(andar){}
 
 //const int Hall::getButton (){return PIN_BTN_CALL;}
-void Hall::setCabinState (char* newState){cabinState =newState;}
-
+void Hall::setCabinState (char* newState){_cabinState =newState;}
+  
 // Inicializando:
 void Hall::begin (){
+  _mqttClient =clientName;
   mqtt.begin(); // inicialização da classe e conexão MQTT
 
   mqtt.setCallback([this](char* topic, byte* payload, unsigned int length) {
@@ -35,8 +39,9 @@ void Hall::loop (){
 // Função para publicar chamada à cabine:
 const int Hall::call (){
   doc_send.clear();
-  doc_send["andarDestino"] = FLOOR;
-  doc_send["andarDestino"] = FLOOR;
+  doc_send["origin"] = _mqttClient;
+  doc_send["destination"] = "Cabin-001";
+  doc_send["andarDestino"] = _FLOOR;
   char buffer[MSG_SIZE];
   serializeJson(doc_send, buffer);
   mqtt.publish (buffer);  // envia pedido de chamada
@@ -46,33 +51,38 @@ const int Hall::call (){
 // Setters: 
 
 // Atualizar na variavel do Hall o andar em que está a cabine
-void Hall::setFloorCabin (int newFloor){floorCabin =newFloor;}
+void Hall::setFloorCabin (int newFloor){_floorCabin =newFloor;}
 
 // Função ativada/excutada ao receber uma publicação:
 void Hall::getMessage (char* topic, byte* payload, unsigned int length){
   DeserializationError error =deserializeJson(doc, payload, length);
 
   if (!error){
-    int andar =doc[""]
-  }
+    if (strcmp(topic, "grupo5/elevador/andar_atual")){
+      // Quando recebe publicação do andar em que a cabine está:
+      int andar =doc["andar_atual"];
+      setFloorCabin (andar);
+    }
+  
+    else if (strcmp(topic, "grupo5/elevador/chegada")){
+      // Quando recebe publicação de a cabine estar no andar do hall:
+      int chegada =doc[""]
+      if (msg == "SIM"){setCabinState("SIM");}
+      else{setCabinState("NAO");}
+    }
+    
+    // conversão do numero textual para inteiro:
+    //setFloorCabin (msg.toInt());
 
   String msg;
 
   // Conversão do payload/publicação para String:
-  for (int i = 0; i < length; i++){
-    msg += (char)payload[i];
-  }
+  // for (int i = 0; i < length; i++){
+  //   msg += (char)payload[i];
+  // }
 
-  // Quando recebe publicação do andar:
-  if (topic == "grupo5/elevador/andar_atual"){
-    // conversão do numero textual para inteiro:
-    setFloorCabin (msg.toInt()); 
-  }
-  // Quando recebe publicação de a cabine estar no andar do hall:
-  else if (topic == "grupo5/elevador/chegada"){
-    if (msg == "SIM"){setCabinState("SIM");}
-    else{setCabinState("NAO");}
-  }
+  
+  
 
 
   //Apenas mostra a mensagem recebida, sem processar. Também transforma o payload em string para facilitar a leitura.
@@ -103,5 +113,5 @@ void Hall::getMessage (char* topic, byte* payload, unsigned int length){
 
 
 // Getters: 
-int Hall::getFloorCabin (int andar){return floorCabin;}
-char* Hall::getCabinState(){return cabinState;}
+int Hall::getFloorCabin (int andar){return _floorCabin;}
+char* Hall::getCabinState(){return _cabinState;}

@@ -104,7 +104,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
 void setup_mqtt(){
   mqttClient.setServer(mqtt_server, mqtt_port);
-  mqttClient.setCallback(callback);
+  mqttClient.set.Callback(callback);
 }
 
 // conecta no MQTT e se inscreve para escuta de mensagens em tópico
@@ -125,7 +125,7 @@ void reconnect_mqtt(){
 }
 
 
-void setup() {
+void setup(){
   Serial.begin(115200);
   //verify_wifi();
   //setup_mqtt();
