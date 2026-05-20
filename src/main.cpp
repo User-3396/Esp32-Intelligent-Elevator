@@ -25,7 +25,7 @@ Adafruit_ST7789 tft = Adafruit_ST7789(TFT_DC, TFT_RST, TFT_CS);
 
 void setup (){
   Serial.begin(115200);
-
+  
   WiFi.begin(ssid, password);
   while (wifiConnect () == 1){
     Serial.print(".");

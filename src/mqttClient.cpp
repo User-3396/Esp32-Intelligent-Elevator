@@ -28,7 +28,7 @@ MQTTClient::MQTTClient(const char* client_id)
     _client(wifi) {}
 
 
-// Função de inicialização
+// Inicialização MQTT
 void MQTTClient::begin (){
     Serial.println("Inicializando MQTTClient...");
     setupWifi (); // configurando conexão wifi
@@ -41,11 +41,12 @@ void MQTTClient::loop (){
     _client.loop(); //processar as mensagens recebidas
 }
 
-
+// Inicializando conexão com o wifi
 void MQTTClient::setupWifi (){
     WiFi.begin(ssid, password);
     
     Serial.println("Conectando ao wifi");
+    //while (wifiConnect () == 1){
     while (WiFi.status() != WL_CONNECTED){
         delay(500);
         Serial.print(".");

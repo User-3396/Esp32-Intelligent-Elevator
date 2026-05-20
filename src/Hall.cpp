@@ -36,6 +36,7 @@ void Hall::loop (){
 const int Hall::call (){
   doc_send.clear();
   doc_send["andarDestino"] = FLOOR;
+  doc_send["andarDestino"] = FLOOR;
   char buffer[MSG_SIZE];
   serializeJson(doc_send, buffer);
   mqtt.publish (buffer);  // envia pedido de chamada
@@ -52,7 +53,7 @@ void Hall::getMessage (char* topic, byte* payload, unsigned int length){
   DeserializationError error =deserializeJson(doc, payload, length);
 
   if (!error){
-int andar =doc[]
+    int andar =doc[""]
   }
 
   String msg;
