@@ -44,22 +44,33 @@ void loop (){
   hall.loop();
   //tft.setText(hall.getFloorCabin());
 
-  // Quando o botao do hall é pressionado:
-  if (digitalRead(PIN_BTN_CALL) == LOW){
-    hall.call();
-    // tft.setText("Chamando cabine...");
-    digitalWrite(PIN_LED, HIGH);
-    delay(500); // debounce simples
-    // tft.setText("Chamando cabine...");
-    digitalWrite(PIN_LED, LOW);
-  }
   
+  if (hall.getFloorCabin() == -1){
+    // Quando não está em chamada (ou esperando a cabine):
+    
+    if (digitalRead(PIN_BTN_CALL) == LOW){
+      // Quando o botao do hall é pressionado:
+      hall.call();
+      // tft.setText("Chamando cabine...");
+      digitalWrite(PIN_LED, HIGH);
+      delay(500); // debounce simples
+      // tft.setText("Chamando cabine...");
+      digitalWrite(PIN_LED, LOW);
+    }
+  }
+  else {
+    // Quando o hall está esperando a cabine
+    if (hall.getCabinState()){
+      //tft.setText("Chegou!", hall.getFloorCabin ());
+      hall.setFloorCabin (-1); // configurando estado do hall.
+    }
+    else{
+      //tft.setText("", hall.getFloorCabin ());
+    }
+    
+  }
   //delay(500);
   
-  // Atualizando estado da cabine: 
-  if (strcmp(hall.getCabinState(), "SIM")){
-    //tft.setText("Chegou!");
-  }
   
 }
 

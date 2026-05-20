@@ -1,7 +1,7 @@
 #ifndef MQTTCLIENT_H
 #define MQTTCLIENT_H
 
-#include <WiFi.h>
+// #include <WiFi.h>
 #include <PubSubClient.h>
 
 class MQTTClient {

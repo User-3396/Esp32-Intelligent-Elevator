@@ -16,7 +16,7 @@ MQTTClient mqtt(clientName);
 Hall::Hall(const int andar) : _FLOOR(andar){}
 
 //const int Hall::getButton (){return PIN_BTN_CALL;}
-void Hall::setCabinState (char* newState){_cabinState =newState;}
+void Hall::setCabinState (bool newState){_cabinState =newState;}
   
 // Inicializando:
 void Hall::begin (){
@@ -58,60 +58,28 @@ void Hall::getMessage (char* topic, byte* payload, unsigned int length){
   DeserializationError error =deserializeJson(doc, payload, length);
 
   if (!error){
-    if (strcmp(topic, "grupo5/elevador/andar_atual")){
+    if (strcmp(topic, "grupo5/elevador/andar_atual") == 0){
       // Quando recebe publicação do andar em que a cabine está:
       int andar =doc["andar_atual"];
       setFloorCabin (andar);
     }
   
-    else if (strcmp(topic, "grupo5/elevador/chegada")){
+    else if (strcmp(topic, "grupo5/elevador/chegada") == 0){
       // Quando recebe publicação de a cabine estar no andar do hall:
-      int chegada =doc[""]
-      if (msg == "SIM"){setCabinState("SIM");}
-      else{setCabinState("NAO");}
+      bool chegada =doc["elevador_chegada"];
+      setCabinState(chegada);
+      
     }
-    
+    else if (strcmp(topic, "grupo5/elevador/chegada") == 0){
+
+    }
     // conversão do numero textual para inteiro:
     //setFloorCabin (msg.toInt());
-
-  String msg;
-
-  // Conversão do payload/publicação para String:
-  // for (int i = 0; i < length; i++){
-  //   msg += (char)payload[i];
-  // }
-
+  }
   
-  
-
-
-  //Apenas mostra a mensagem recebida, sem processar. Também transforma o payload em string para facilitar a leitura.
-  // String message;
-  // Serial.print("MQTT Recv: ");
-  // for (int i = 0; i < length; i++){
-  // message += (char)payload[i];
-  // }
-  // Serial.println(message);
-
-  //Deserializa e processa a mensagem recebida
-  // doc.clear();
-  // deserializeJson(doc, message);
-  
-  // if (strcmp(topic, sub_topic) == 0){
-  //     int andarDestino = doc["andarDestino"];
-  //     Serial.print("Andar destino recebido: ");
-  //     Serial.println(andarDestino);
-
-  //     if (andarDestino >= 0 && andarDestino <= ULTIMO_ANDAR){
-  //         elevador.setAndarDestino(andarDestino);
-  //     }
-  // }
 
 }
 
-
-
-
 // Getters: 
-int Hall::getFloorCabin (int andar){return _floorCabin;}
-char* Hall::getCabinState(){return _cabinState;}
+int Hall::getFloorCabin (){return _floorCabin;}
+bool Hall::getCabinState (){return _cabinState;}

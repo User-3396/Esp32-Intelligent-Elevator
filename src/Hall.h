@@ -1,16 +1,13 @@
 #ifndef HALL_H
 #define HALL_H
 
-// #include <Arduino.h>
-// #include "mqttClient.h"   // usa sua classe MQTTClient
-
 class Hall {
   private:
     //MQTTClient mqtt;         // cliente MQTT específico do Hall
     const char* _mqttClient;         
     const int _FLOOR;             // andar do hall
     int _floorCabin;              // andar da cabine
-    char* _cabinState;
+    bool _cabinState;
 
   public:
     Hall(const int andar);//, const int botaoPin, const int ledPin);
@@ -20,11 +17,11 @@ class Hall {
     //const int getButton ();
     const int call ();
     // Getters:
-    char* getCabinState ();
-    int getFloorCabin (int andar);
+    bool getCabinState ();
+    int getFloorCabin ();
     // Setters:
     void setFloorCabin (int andar);
-    void setCabinState (char* newState);
+    void setCabinState (bool newState);
 };
 
 #endif
