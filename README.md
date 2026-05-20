@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
     div{
         padding: 10px;
     }
@@ -7,7 +7,7 @@
         margin: 5px;
         color: rgb(255, 255, 255);
     }
-</style>
+</style> -->
 
 <div style="background-color: rgb(0, 0, 0);">
 
