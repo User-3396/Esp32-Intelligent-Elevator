@@ -17,16 +17,33 @@ in cooperation with an external repository: https://github.com/0Chaves/CabineEle
 
 
 
-<img src="https://img.shields.io/badge/Hyper-000000?style=for-the-badge&logo=hyper&logoColor=white">
-
 <div style="padding: 10px; background-color: rgb(53, 53, 53);">
     <p class="list">- ESP32</p>
     <p class="list">- MQTT</p>
     <p class="list">- Hall functionalities</p>
 </div>
+<img src="https://mischianti.org/wp-content/uploads/2021/07/ESP32-DEV-KIT-DevKitC-v4-pinout-mischianti-1024x598.jpg.webp">
 <br>
-<img src="https://www.propernoun.co/wp-content/uploads/2022/02/screen-code-second-1_bgvbbf.gif">
+<img src="https://abacasstorageaccnt.blob.core.windows.net/cirkit/589453c0-de81-4c0b-ba42-8bb299b8a8d3.png">
 <!-- <img src="https://cdn.prod.website-files.com/63d7f700e92435e642d20313/66b1fefe9dd340367621edf9_Software%20Security%20var2%20(1).gif"> -->
+
 </div>
+<br>
+<br>
+
+
+<p>Ecrã</p>
+<p>SDA/MOSI</p>
+<p>SCL/SCK</p>
+<p>BKL/BL</p>
+<br>
+
+<p>DC -> SCL</p>
+<p>RES -> SDA</p>
+<p>DC -> SCL</p>
+<p>SCL -> HSPI-SCK</p>
+<p>SDA -> HSPI-MOSI</p>
+
+
 
 <!--  -->

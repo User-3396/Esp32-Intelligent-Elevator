@@ -66,6 +66,9 @@ void Hall::getMessage (char* topic, byte* payload, unsigned int length){
       bool chegada =doc["elevador_chegada"];
       setFloorCabin (andar);
       setCabinState(chegada);
+      // String type = doc["type"].as<String>();
+     
+      
     }
   
     // else if (strcmp(topic, "grupo5/elevador/chegada") == 0){
