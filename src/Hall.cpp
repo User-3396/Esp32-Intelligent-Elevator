@@ -50,7 +50,8 @@ const int Hall::call (){
   serializeJson(doc_send, buffer);
   mqtt.publish (buffer);  // envia pedido de chamada
   // Possivel alteração no método publish de origem, se for necessario aplicar o parâmetro 'plength' de 'publish()'
-
+  
+  _state =false; // mudar o estado para não ficar mais escutando o botão de chamada 
 }
 
 // Atualizar na variavel do Hall o andar em que está a cabine
@@ -67,6 +68,8 @@ void Hall::getMessage (char* topic, byte* payload, unsigned int length){
     _cabinState =doc["elevador_chegada"];
     // String type = doc["type"].as<String>();
     
+    if (_cabinFloor == _FLOOR && _cabinDoor == 0) _state =true; // atualiza o estado de escuta do hall 
+
   }
   else Serial.println("Erro ao deserializar o Json.");
 
